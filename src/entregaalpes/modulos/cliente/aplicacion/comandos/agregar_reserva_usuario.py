@@ -1,9 +1,9 @@
 import uuid
 from entregaalpes.seedwork.aplicacion.comandos import Comando, ComandoHandler    
 
-class AgregarReservaUsuario(Comando):
+class AgregarSolicitudUsuario(Comando):
     id_usuario: uuid.UUID
-    id_reserva: uuid.UUID
+    id_solicitud: uuid.UUID
 
-class AgregarReservaUsuarioHandler(ComandoHandler):
+class AgregarSolicitudUsuarioHandler(ComandoHandler):
     ...

@@ -1,13 +1,13 @@
 
 
-from entregaalpes.modulos.vuelos.dominio.eventos import ReservaCreada
+from entregaalpes.modulos.envios.dominio.eventos import SolicitudCreada
 from entregaalpes.seedwork.aplicacion.handlers import Handler
 
-class HandlerReservaDominio(Handler):
+class HandlerSolicitudDominio(Handler):
 
     @staticmethod
-    def handle_reserva_creada(evento):
-        print('================ RESERVA CREADA ===========')
+    def handle_solicitud_creada(evento):
+        print('================ SOLICITUD CREADA ===========')
         
 
     

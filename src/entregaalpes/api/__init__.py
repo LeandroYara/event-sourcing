@@ -8,7 +8,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
     import entregaalpes.modulos.cliente.aplicacion
-    import entregaalpes.modulos.vuelos.aplicacion
+    import entregaalpes.modulos.envios.aplicacion
 
 def importar_modelos_alchemy():
     import entregaalpes.modulos.cliente.infraestructura.dto
@@ -16,7 +16,7 @@ def importar_modelos_alchemy():
     import entregaalpes.modulos.pagos.infraestructura.dto
     import entregaalpes.modulos.precios_dinamicos.infraestructura.dto
     import entregaalpes.modulos.vehiculos.infraestructura.dto
-    import entregaalpes.modulos.vuelos.infraestructura.dto
+    import entregaalpes.modulos.envios.infraestructura.dto
 
 def comenzar_consumidor(app):
     """
@@ -31,7 +31,7 @@ def comenzar_consumidor(app):
     import entregaalpes.modulos.pagos.infraestructura.consumidores as pagos
     import entregaalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
     import entregaalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
-    import entregaalpes.modulos.vuelos.infraestructura.consumidores as vuelos
+    import entregaalpes.modulos.envios.infraestructura.consumidores as vuelos
 
     # Suscripción a eventos
     threading.Thread(target=cliente.suscribirse_a_eventos).start()

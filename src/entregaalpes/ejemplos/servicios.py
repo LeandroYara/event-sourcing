@@ -1,9 +1,9 @@
-from entregaalpes.modulos.vuelos.dominio.objetos_valor import Odo, ParametroBusca
-from entregaalpes.modulos.vuelos.dominio.entidades import Itinerario, Proveedor
-from entregaalpes.modulos.vuelos.dominio.repositorios import RepositorioProveedores as rp
+from entregaalpes.modulos.envios.dominio.objetos_valor import Odo, ParametroBusca
+from entregaalpes.modulos.envios.dominio.entidades import Itinerario, Proveedor
+from entregaalpes.modulos.envios.dominio.repositorios import RepositorioProveedores as rp
 from entregaalpes.seedwork.dominio.servicios import Servicio
-from entregaalpes.modulos.vuelos.dominio.mixins import FiltradoItinerariosMixin
-from entregaalpes.modulos.vuelos.dominio.reglas import MinimoUnAdulto, RutaValida
+from entregaalpes.modulos.envios.dominio.mixins import FiltradoItinerariosMixin
+from entregaalpes.modulos.envios.dominio.reglas import MinimoUnAdulto, RutaValida
 
 class ServicioBusqueda(Servicio, FiltradoItinerariosMixin):
 

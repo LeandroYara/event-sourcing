@@ -1,20 +1,20 @@
 import entregaalpes.seedwork.presentacion.api as api
 import json
-from entregaalpes.modulos.vuelos.aplicacion.dto import ReservaDTO
+from entregaalpes.modulos.envios.aplicacion.dto import ReservaDTO
 from entregaalpes.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
-from entregaalpes.modulos.vuelos.aplicacion.mapeadores import MapeadorReservaDTOJson
-from entregaalpes.modulos.vuelos.aplicacion.comandos.crear_reserva import CrearReserva
-from entregaalpes.modulos.vuelos.aplicacion.queries.obtener_reserva import ObtenerReserva
+from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorReservaDTOJson
+from entregaalpes.modulos.envios.aplicacion.comandos.crear_reserva import CrearReserva
+from entregaalpes.modulos.envios.aplicacion.queries.obtener_reserva import ObtenerReserva
 from entregaalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from entregaalpes.seedwork.aplicacion.queries import ejecutar_query
 
 bp = api.crear_blueprint('vuelos', '/vuelos')
 
 @bp.route('/reserva', methods=('POST',))
-def reservar_usando_comando():
+def solicitar_usando_comando():
     try:
         # NOTE Asignamos el valor 'pulsar' para usar la Unidad de trabajo de Pulsar y 
         # no la defecto de SQLAlchemy

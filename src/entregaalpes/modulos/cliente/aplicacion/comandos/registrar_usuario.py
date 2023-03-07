@@ -3,8 +3,8 @@ from entregaalpes.seedwork.aplicacion.comandos import Comando, ComandoHandler
 class RegistrarUsuario(Comando):
     nombres: str
     apellidos: str
-    email: str
-    password: str
+    correo: str
+    contrasena: str
     es_empresarial: bool
 
 class RegistrarUsuarioHandler(ComandoHandler):
