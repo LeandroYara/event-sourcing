@@ -1,32 +1,33 @@
+from entregaalpes.modulos.envios.infraestructura.mapeadores import MapeadorReserva
 from entregaalpes.seedwork.aplicacion.comandos import Comando
-from entregaalpes.modulos.envios.aplicacion.dto import ItinerarioDTO, ReservaDTO
-from .base import CrearReservaBaseHandler
+from entregaalpes.modulos.envios.aplicacion.dto import SolicitudDTO
+from .base import CrearSolicitudBaseHandler
 from dataclasses import dataclass, field
 from entregaalpes.seedwork.aplicacion.comandos import ejecutar_commando as comando
 
-from entregaalpes.modulos.envios.dominio.entidades import Reserva
+from entregaalpes.modulos.envios.dominio.entidades import Solicitud
 from entregaalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
-from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorReserva
+from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorSo
 from entregaalpes.modulos.envios.infraestructura.repositorios import RepositorioReservas, RepositorioEventosReservas
 
 @dataclass
-class CrearReserva(Comando):
+class CrearSolicitud(Comando):
     fecha_creacion: str
     fecha_actualizacion: str
     id: str
-    itinerarios: list[ItinerarioDTO]
+    cliente: str
 
 
-class CrearReservaHandler(CrearReservaBaseHandler):
+class CrearSolicitudHandler(CrearSolicitudBaseHandler):
     
-    def handle(self, comando: CrearReserva):
-        reserva_dto = ReservaDTO(
+    def handle(self, comando: CrearSolicitud):
+        solicitud_dto = SolicitudDTO(
                 fecha_actualizacion=comando.fecha_actualizacion
             ,   fecha_creacion=comando.fecha_creacion
             ,   id=comando.id
-            ,   itinerarios=comando.itinerarios)
+            ,   cliente=comando.cliente)
 
-        reserva: Reserva = self.fabrica_vuelos.crear_objeto(reserva_dto, MapeadorReserva())
+        solicitud: Solicitud = self.fabrica_vuelos.crear_objeto(solicitud_dto, MapeadorReserva())
         reserva.crear_reserva(reserva)
 
         repositorio = self.fabrica_repositorio.crear_objeto(RepositorioReservas)

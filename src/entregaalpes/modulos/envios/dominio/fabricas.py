@@ -5,9 +5,8 @@ objetos complejos del dominio de vuelos
 
 """
 
-from .entidades import Reserva
-from .reglas import MinimoUnItinerario, RutaValida
-from .excepciones import TipoObjetoNoExisteEnDominioVuelosExcepcion
+from .entidades import Solicitud
+from .excepciones import TipoObjetoNoExisteEnDominioEnviosExcepcion
 from entregaalpes.seedwork.dominio.repositorios import Mapeador, Repositorio
 from entregaalpes.seedwork.dominio.fabricas import Fabrica
 from entregaalpes.seedwork.dominio.entidades import Entidad
@@ -20,19 +19,16 @@ class _FabricaSolicitud(Fabrica):
         if isinstance(obj, Entidad) or isinstance(obj, EventoDominio):
             return mapeador.entidad_a_dto(obj)
         else:
-            reserva: Reserva = mapeador.dto_a_entidad(obj)
-
-            self.validar_regla(MinimoUnItinerario(reserva.itinerarios))
-            [self.validar_regla(RutaValida(ruta)) for itin in reserva.itinerarios for odo in itin.odos for segmento in odo.segmentos for ruta in segmento.legs]
+            solicitud: Solicitud = mapeador.dto_a_entidad(obj)
             
-            return reserva
+            return solicitud
 
 @dataclass
 class FabricaEnvios(Fabrica):
     def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
-        if mapeador.obtener_tipo() == Reserva.__class__:
-            fabrica_reserva = _FabricaSolicitud()
-            return fabrica_reserva.crear_objeto(obj, mapeador)
+        if mapeador.obtener_tipo() == Solicitud.__class__:
+            fabrica_solicitud = _FabricaSolicitud()
+            return fabrica_solicitud.crear_objeto(obj, mapeador)
         else:
-            raise TipoObjetoNoExisteEnDominioVuelosExcepcion()
+            raise TipoObjetoNoExisteEnDominioEnviosExcepcion()
 

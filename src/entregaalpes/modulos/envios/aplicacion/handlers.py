@@ -1,28 +1,28 @@
-from entregaalpes.modulos.envios.dominio.eventos import ReservaCreada, ReservaCancelada, ReservaAprobada, ReservaPagada
+from entregaalpes.modulos.envios.dominio.eventos import SolicitudCreada, SolicitudCancelada, SolicitudAprobada, SolicitudPagada
 from entregaalpes.seedwork.aplicacion.handlers import Handler
 from entregaalpes.modulos.envios.infraestructura.despachadores import Despachador
 
 class HandlerReservaIntegracion(Handler):
 
     @staticmethod
-    def handle_reserva_creada(evento):
+    def handle_solicitud_creada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-reserva')
+        despachador.publicar_evento(evento, 'eventos-solicitud')
 
     @staticmethod
-    def handle_reserva_cancelada(evento):
+    def handle_solicitud_cancelada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-reserva')
+        despachador.publicar_evento(evento, 'eventos-solicitud')
 
     @staticmethod
-    def handle_reserva_aprobada(evento):
+    def handle_solicitud_aprobada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-reserva')
+        despachador.publicar_evento(evento, 'eventos-solicitud')
 
     @staticmethod
-    def handle_reserva_pagada(evento):
+    def handle_solicitud_pagada(evento):
         despachador = Despachador()
-        despachador.publicar_evento(evento, 'eventos-reserva')
+        despachador.publicar_evento(evento, 'eventos-solicitud')
 
 
     

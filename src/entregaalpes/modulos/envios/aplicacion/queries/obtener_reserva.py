@@ -1,24 +1,24 @@
 from entregaalpes.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
 from entregaalpes.seedwork.aplicacion.queries import ejecutar_query as query
 from entregaalpes.modulos.envios.infraestructura.repositorios import RepositorioReservas
-from entregaalpes.modulos.envios.dominio.entidades import Reserva
+from entregaalpes.modulos.envios.dominio.entidades import Solicitud
 from dataclasses import dataclass
-from .base import ReservaQueryBaseHandler
-from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorReserva
+from .base import SolicitudQueryBaseHandler
+from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorSolicitud
 import uuid
 
 @dataclass
-class ObtenerReserva(Query):
+class ObtenerSolicitud(Query):
     id: str
 
-class ObtenerReservaHandler(ReservaQueryBaseHandler):
+class ObtenerSolicitudHandler(SolicitudQueryBaseHandler):
 
-    def handle(self, query: ObtenerReserva) -> QueryResultado:
-        vista = self.fabrica_vista.crear_objeto(Reserva)
-        reserva =  self.fabrica_vuelos.crear_objeto(vista.obtener_por(id=query.id)[0], MapeadorReserva())
-        return QueryResultado(resultado=reserva)
+    def handle(self, query: ObtenerSolicitud) -> QueryResultado:
+        vista = self.fabrica_vista.crear_objeto(Solicitud)
+        solicitud =  self.fabrica_envios.crear_objeto(vista.obtener_por(id=query.id)[0], MapeadorSolicitud())
+        return QueryResultado(resultado=solicitud)
 
-@query.register(ObtenerReserva)
-def ejecutar_query_obtener_reserva(query: ObtenerReserva):
-    handler = ObtenerReservaHandler()
+@query.register(ObtenerSolicitud)
+def ejecutar_query_obtener_solicitud(query: ObtenerSolicitud):
+    handler = ObtenerSolicitudHandler()
     return handler.handle(query)

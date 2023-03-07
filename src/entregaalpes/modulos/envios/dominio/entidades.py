@@ -33,21 +33,21 @@ class Solicitud(AgregacionRaiz):
         self.agregar_evento(SolicitudCreada(id_reserva=self.id, id_cliente=self.id_cliente, estado=self.estado.name, fecha_creacion=self.fecha_creacion))
         # TODO Agregar evento de compensación
 
-    def aprobar_reserva(self):
-        self.estado = ov.EstadoReserva.APROBADA
+    def aprobar_solicitud(self):
+        self.estado = ov.EstadoSolicitud.APROBADA
         self.fecha_actualizacion = datetime.datetime.now()
 
         self.agregar_evento(SolicitudAprobada(self.id, self.fecha_actualizacion))
         # TODO Agregar evento de compensación
 
-    def cancelar_reserva(self):
+    def cancelar_solicitud(self):
         self.estado = ov.EstadoSolicitud.CANCELADA
         self.fecha_actualizacion = datetime.datetime.now()
 
         self.agregar_evento(SolicitudCancelada(self.id, self.fecha_actualizacion))
         # TODO Agregar evento de compensación
     
-    def pagar_reserva(self):
+    def pagar_solicitud(self):
         self.estado = ov.EstadoReserva.PAGADA
         self.fecha_actualizacion = datetime.datetime.now()
 

@@ -12,10 +12,7 @@ def registrar_handlers():
 
 def importar_modelos_alchemy():
     import entregaalpes.modulos.cliente.infraestructura.dto
-    import entregaalpes.modulos.hoteles.infraestructura.dto
     import entregaalpes.modulos.pagos.infraestructura.dto
-    import entregaalpes.modulos.precios_dinamicos.infraestructura.dto
-    import entregaalpes.modulos.vehiculos.infraestructura.dto
     import entregaalpes.modulos.envios.infraestructura.dto
 
 def comenzar_consumidor(app):
@@ -27,27 +24,18 @@ def comenzar_consumidor(app):
 
     import threading
     import entregaalpes.modulos.cliente.infraestructura.consumidores as cliente
-    import entregaalpes.modulos.hoteles.infraestructura.consumidores as hoteles
     import entregaalpes.modulos.pagos.infraestructura.consumidores as pagos
-    import entregaalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
-    import entregaalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
-    import entregaalpes.modulos.envios.infraestructura.consumidores as vuelos
+    import entregaalpes.modulos.envios.infraestructura.consumidores as envios
 
     # Suscripción a eventos
     threading.Thread(target=cliente.suscribirse_a_eventos).start()
-    threading.Thread(target=hoteles.suscribirse_a_eventos).start()
     threading.Thread(target=pagos.suscribirse_a_eventos).start()
-    threading.Thread(target=precios_dinamicos.suscribirse_a_eventos).start()
-    threading.Thread(target=vehiculos.suscribirse_a_eventos).start()
-    threading.Thread(target=vuelos.suscribirse_a_eventos, args=[app]).start()
+    threading.Thread(target=envios.suscribirse_a_eventos, args=[app]).start()
 
     # Suscripción a comandos
     threading.Thread(target=cliente.suscribirse_a_comandos).start()
-    threading.Thread(target=hoteles.suscribirse_a_comandos).start()
     threading.Thread(target=pagos.suscribirse_a_comandos).start()
-    threading.Thread(target=precios_dinamicos.suscribirse_a_comandos).start()
-    threading.Thread(target=vehiculos.suscribirse_a_comandos).start()
-    threading.Thread(target=vuelos.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=envios.suscribirse_a_comandos, args=[app]).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -77,19 +65,13 @@ def create_app(configuracion={}):
 
      # Importa Blueprints
     from . import cliente
-    from . import hoteles
     from . import pagos
-    from . import precios_dinamicos
-    from . import vehiculos
-    from . import vuelos
+    from . import envios
 
     # Registro de Blueprints
     app.register_blueprint(cliente.bp)
-    app.register_blueprint(hoteles.bp)
     app.register_blueprint(pagos.bp)
-    app.register_blueprint(precios_dinamicos.bp)
-    app.register_blueprint(vehiculos.bp)
-    app.register_blueprint(vuelos.bp)
+    app.register_blueprint(envios.bp)
 
     @app.route("/spec")
     def spec():
