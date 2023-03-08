@@ -1,6 +1,6 @@
 from entregaalpes.seedwork.aplicacion.comandos import ComandoHandler
-from entregaalpes.modulos.envios.infraestructura.fabricas import FabricaRepositorio
-from entregaalpes.modulos.envios.dominio.fabricas import FabricaEnvios
+from entregaalpes.modulos.solicitudes.infraestructura.fabricas import FabricaRepositorio
+from entregaalpes.modulos.solicitudes.dominio.fabricas import FabricaEnvios
 
 class CrearSolicitudBaseHandler(ComandoHandler):
     def __init__(self):

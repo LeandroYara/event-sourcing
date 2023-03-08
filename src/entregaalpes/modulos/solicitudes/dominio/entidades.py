@@ -9,16 +9,11 @@ from dataclasses import dataclass, field
 import datetime
 import uuid
 
-import entregaalpes.modulos.envios.dominio.objetos_valor as ov
-from entregaalpes.modulos.envios.dominio.eventos import SolicitudCreada, SolicitudAprobada, SolicitudCancelada, SolicitudPagada
-from entregaalpes.seedwork.dominio.entidades import AgregacionRaiz, Entidad
+import entregaalpes.modulos.solicitudes.dominio.objetos_valor as ov
+from entregaalpes.modulos.solicitudes.dominio.eventos import SolicitudCreada, SolicitudAprobada, SolicitudCancelada, SolicitudPagada
+from entregaalpes.seedwork.dominio.entidades import AgregacionRaiz
 
 @dataclass
-
-@dataclass
-class Cliente(Entidad):
-    clase: ov.Clase = field(default_factory=ov.Clase)
-    tipo: ov.TipoPasajero = field(default_factory=ov.TipoPasajero)
 
 @dataclass
 class Solicitud(AgregacionRaiz):
@@ -48,7 +43,7 @@ class Solicitud(AgregacionRaiz):
         # TODO Agregar evento de compensación
     
     def pagar_solicitud(self):
-        self.estado = ov.EstadoReserva.PAGADA
+        self.estado = ov.EstadoSolicitud.PAGADA
         self.fecha_actualizacion = datetime.datetime.now()
 
         self.agregar_evento(SolicitudPagada(self.id, self.fecha_actualizacion))

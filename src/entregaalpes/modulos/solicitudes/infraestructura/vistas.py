@@ -1,10 +1,10 @@
 from entregaalpes.seedwork.infraestructura.vistas import Vista
-from entregaalpes.modulos.envios.dominio.entidades import Reserva
+from entregaalpes.modulos.solicitudes.dominio.entidades import Solicitud
 from entregaalpes.config.db import db
-from .dto import Reserva as ReservaDTO
+from .dto import Solicitud as SolicitudDTO
 
-class VistaReserva(Vista):
-    def obtener_por(id=None, estado=None, id_cliente=None, **kwargs) -> Reserva:
+class VistaSolicitud(Vista):
+    def obtener_por(id=None, estado=None, id_cliente=None, **kwargs) -> Solicitud:
         params = dict()
 
         if id:
@@ -17,4 +17,4 @@ class VistaReserva(Vista):
             params['id_cliente'] = str(id_cliente)
             
         # TODO Convierta ReservaDTO a Reserva y valide que la consulta es correcta
-        return db.session.query(ReservaDTO).filter_by(**params)
+        return db.session.query(SolicitudDTO).filter_by(**params)

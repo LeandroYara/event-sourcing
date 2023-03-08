@@ -1,23 +1,23 @@
 from entregaalpes.seedwork.infraestructura.proyecciones import Proyeccion, ProyeccionHandler
 from entregaalpes.seedwork.infraestructura.proyecciones import ejecutar_proyeccion as proyeccion
-from entregaalpes.modulos.envios.infraestructura.fabricas import FabricaRepositorio
-from entregaalpes.modulos.envios.infraestructura.repositorios import RepositorioReservas
-from entregaalpes.modulos.envios.dominio.entidades import Reserva
-from entregaalpes.modulos.envios.infraestructura.dto import Reserva as ReservaDTO
+from entregaalpes.modulos.solicitudes.infraestructura.fabricas import FabricaRepositorio
+from entregaalpes.modulos.solicitudes.infraestructura.repositorios import RepositorioSolicitudes
+from entregaalpes.modulos.solicitudes.dominio.entidades import Solicitud
+from entregaalpes.modulos.solicitudes.infraestructura.dto import Solicitud as SolicitudDTO
 
 from entregaalpes.seedwork.infraestructura.utils import millis_a_datetime
 import datetime
 import logging
 import traceback
 from abc import ABC, abstractmethod
-from .dto import ReservaAnalitica
+from .dto import SolicitudAnalitica
 
-class ProyeccionReserva(Proyeccion, ABC):
+class ProyeccionSolicitud(Proyeccion, ABC):
     @abstractmethod
     def ejecutar(self):
         ...
 
-class ProyeccionReservasTotales(ProyeccionReserva):
+class ProyeccionSolicitudesTotales(ProyeccionSolicitud):
     ADD = 1
     DELETE = 2
     UPDATE = 3
@@ -31,7 +31,7 @@ class ProyeccionReservasTotales(ProyeccionReserva):
             logging.error('ERROR: DB del app no puede ser nula')
             return
         # NOTE esta no usa repositorios y de una vez aplica los cambios. Es decir, no todo siempre debe ser un repositorio
-        record = db.session.query(ReservaAnalitica).filter_by(fecha_creacion=self.fecha_creacion.date()).one_or_none()
+        record = db.session.query(SolicitudAnalitica).filter_by(fecha_creacion=self.fecha_creacion.date()).one_or_none()
 
         if record and self.operacion == self.ADD:
             record.total += 1
@@ -39,11 +39,11 @@ class ProyeccionReservasTotales(ProyeccionReserva):
             record.total -= 1 
             record.total = max(record.total, 0)
         else:
-            db.session.add(ReservaAnalitica(fecha_creacion=self.fecha_creacion.date(), total=1))
+            db.session.add(SolicitudAnalitica(fecha_creacion=self.fecha_creacion.date(), total=1))
         
         db.session.commit()
 
-class ProyeccionReservasLista(ProyeccionReserva):
+class ProyeccionSolicitudesLista(ProyeccionSolicitud):
     def __init__(self, id_reserva, id_cliente, estado, fecha_creacion, fecha_actualizacion):
         self.id_reserva = id
         self.id_cliente = id_cliente
@@ -57,11 +57,10 @@ class ProyeccionReservasLista(ProyeccionReserva):
             return
         
         fabrica_repositorio = FabricaRepositorio()
-        repositorio = fabrica_repositorio.crear_objeto(RepositorioReservas)
+        repositorio = fabrica_repositorio.crear_objeto(RepositorioSolicitudes)
         
-        # TODO Haga los cambios necesarios para que se consideren los itinerarios, demás entidades y asociaciones
         repositorio.agregar(
-            Reserva(
+            Solicitud(
                 id=str(self.id_reserva), 
                 id_cliente=str(self.id_cliente), 
                 estado=str(self.estado), 
@@ -73,27 +72,23 @@ class ProyeccionReservasLista(ProyeccionReserva):
         # TODO ¿Tal vez podríamos reutilizar la Unidad de Trabajo?
         db.session.commit()
 
-class ProyeccionReservaHandler(ProyeccionHandler):
+class ProyeccionSolicitudHandler(ProyeccionHandler):
     
-    def handle(self, proyeccion: ProyeccionReserva):
-
-        # TODO El evento de creación no viene con todos los datos de itinerarios, esto tal vez pueda ser una extensión
-        # Asi mismo estamos dejando la funcionalidad de persistencia en el mismo método de recepción. Piense que componente
-        # podriamos diseñar para alojar esta funcionalidad
+    def handle(self, proyeccion: ProyeccionSolicitud):
         from entregaalpes.config.db import db
 
         proyeccion.ejecutar(db=db)
         
 
-@proyeccion.register(ProyeccionReservasLista)
-@proyeccion.register(ProyeccionReservasTotales)
+@proyeccion.register(ProyeccionSolicitudesLista)
+@proyeccion.register(ProyeccionSolicitudesTotales)
 def ejecutar_proyeccion_reserva(proyeccion, app=None):
     if not app:
         logging.error('ERROR: Contexto del app no puede ser nulo')
         return
     try:
         with app.app_context():
-            handler = ProyeccionReservaHandler()
+            handler = ProyeccionSolicitudHandler()
             handler.handle(proyeccion)
             
     except:

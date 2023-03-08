@@ -6,11 +6,11 @@ import logging
 import traceback
 import datetime
 
-from entregaalpes.modulos.envios.infraestructura.schema.v1.eventos import EventoReservaCreada
-from entregaalpes.modulos.envios.infraestructura.schema.v1.comandos import ComandoCrearReserva
+from entregaalpes.modulos.solicitudes.infraestructura.schema.v1.eventos import EventoReservaCreada
+from entregaalpes.modulos.solicitudes.infraestructura.schema.v1.comandos import ComandoCrearReserva
 
 
-from entregaalpes.modulos.envios.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
+from entregaalpes.modulos.solicitudes.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
 from entregaalpes.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 from entregaalpes.seedwork.infraestructura import utils
 
@@ -25,7 +25,6 @@ def suscribirse_a_eventos(app=None):
             datos = mensaje.value().data
             print(f'Evento recibido: {datos}')
 
-            # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             ejecutar_proyeccion(ProyeccionReservasTotales(datos.fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
             ejecutar_proyeccion(ProyeccionReservasLista(datos.id_reserva, datos.id_cliente, datos.estado, datos.fecha_creacion, datos.fecha_creacion), app=app)
             
@@ -42,7 +41,7 @@ def suscribirse_a_comandos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
-        consumidor = cliente.subscribe('comandos-reserva', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comandos', schema=AvroSchema(ComandoCrearReserva))
+        consumidor = cliente.subscribe('comandos-solicitud', consumer_type=_pulsar.ConsumerType.Shared, subscription_name='aeroalpes-sub-comandos', schema=AvroSchema(ComandoCrearReserva))
 
         while True:
             mensaje = consumidor.receive()

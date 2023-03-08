@@ -1,7 +1,7 @@
 from entregaalpes.seedwork.aplicacion.dto import Mapeador as AppMap
 from entregaalpes.seedwork.dominio.repositorios import Mapeador as RepMap
-from entregaalpes.modulos.envios.dominio.entidades import Solicitud
-from entregaalpes.modulos.envios.dominio.objetos_valor import Segmento, Leg
+from entregaalpes.modulos.solicitudes.dominio.entidades import Solicitud
+from entregaalpes.modulos.solicitudes.dominio.objetos_valor import Segmento, Leg
 from .dto import SolicitudDTO
 
 from datetime import datetime

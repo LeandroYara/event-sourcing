@@ -1,6 +1,6 @@
-from entregaalpes.modulos.envios.dominio.eventos import SolicitudCreada, SolicitudCancelada, SolicitudAprobada, SolicitudPagada
+from entregaalpes.modulos.solicitudes.dominio.eventos import SolicitudCreada, SolicitudCancelada, SolicitudAprobada, SolicitudPagada
 from entregaalpes.seedwork.aplicacion.handlers import Handler
-from entregaalpes.modulos.envios.infraestructura.despachadores import Despachador
+from entregaalpes.modulos.solicitudes.infraestructura.despachadores import Despachador
 
 class HandlerReservaIntegracion(Handler):
 

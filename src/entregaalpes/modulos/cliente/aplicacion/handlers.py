@@ -1,6 +1,6 @@
 
 
-from entregaalpes.modulos.envios.dominio.eventos import SolicitudCreada
+from entregaalpes.modulos.solicitudes.dominio.eventos import SolicitudCreada
 from entregaalpes.seedwork.aplicacion.handlers import Handler
 
 class HandlerSolicitudDominio(Handler):

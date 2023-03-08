@@ -1,6 +1,6 @@
 from token import RPAR
-from entregaalpes.modulos.envios.dominio.objetos_valor import Odo, ParametroBusca, Segmento, Leg, CodigoIATA, Itinerario
-from entregaalpes.modulos.envios.dominio.entidades import Proveedor,Aeropuerto
+from entregaalpes.modulos.solicitudes.dominio.objetos_valor import Odo, ParametroBusca, Segmento, Leg, CodigoIATA, Itinerario
+from entregaalpes.modulos.solicitudes.dominio.entidades import Proveedor,Aeropuerto
 
 def filtrar_mejores_itinerarios(itinerarios: list[Itinerario]) -> list[Itinerario]:
     # Logica compleja para filtrar itinerarios

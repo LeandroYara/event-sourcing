@@ -1,10 +1,10 @@
 from entregaalpes.seedwork.aplicacion.queries import Query, QueryHandler, QueryResultado
 from entregaalpes.seedwork.aplicacion.queries import ejecutar_query as query
-from entregaalpes.modulos.envios.infraestructura.repositorios import RepositorioReservas
-from entregaalpes.modulos.envios.dominio.entidades import Solicitud
+from entregaalpes.modulos.solicitudes.infraestructura.repositorios import RepositorioReservas
+from entregaalpes.modulos.solicitudes.dominio.entidades import Solicitud
 from dataclasses import dataclass
 from .base import SolicitudQueryBaseHandler
-from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorSolicitud
+from entregaalpes.modulos.solicitudes.aplicacion.mapeadores import MapeadorSolicitud
 import uuid
 
 @dataclass

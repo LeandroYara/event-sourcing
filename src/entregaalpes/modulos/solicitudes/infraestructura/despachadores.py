@@ -1,15 +1,15 @@
 import pulsar
 from pulsar.schema import *
 
-from entregaalpes.modulos.envios.infraestructura.schema.v1.eventos import EventoReservaCreada, ReservaCreadaPayload
-from entregaalpes.modulos.envios.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
+from entregaalpes.modulos.solicitudes.infraestructura.schema.v1.eventos import EventoReservaCreada, ReservaCreadaPayload
+from entregaalpes.modulos.solicitudes.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
 from entregaalpes.seedwork.infraestructura import utils
 
-from entregaalpes.modulos.envios.infraestructura.mapeadores import MapadeadorEventosReserva
+from entregaalpes.modulos.solicitudes.infraestructura.mapeadores import MapadeadorEventosSolicitud
 
 class Despachador:
     def __init__(self):
-        self.mapper = MapadeadorEventosReserva()
+        self.mapper = MapadeadorEventosSolicitud()
 
     def _publicar_mensaje(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')

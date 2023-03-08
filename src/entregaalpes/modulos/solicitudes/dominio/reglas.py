@@ -6,13 +6,13 @@ En este archivo usted encontrará reglas de negocio del dominio de cliente
 
 from entregaalpes.seedwork.dominio.reglas import ReglaNegocio
 from .objetos_valor import Ruta
-from .entidades import Pasajero
+from .entidades import Cliente
 from .objetos_valor import TipoPasajero, Itinerario
 
 
 class MinimoUnAdulto(ReglaNegocio):
 
-    pasajeros: list[Pasajero]
+    clientes: list[Cliente]
 
     def __init__(self, pasajeros, mensaje='Al menos un adulto debe ser parte del itinerario'):
         super().__init__(mensaje)

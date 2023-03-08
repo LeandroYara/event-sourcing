@@ -1,14 +1,14 @@
-from entregaalpes.modulos.envios.infraestructura.mapeadores import MapeadorReserva
+from entregaalpes.modulos.solicitudes.infraestructura.mapeadores import MapeadorReserva
 from entregaalpes.seedwork.aplicacion.comandos import Comando
-from entregaalpes.modulos.envios.aplicacion.dto import SolicitudDTO
+from entregaalpes.modulos.solicitudes.aplicacion.dto import SolicitudDTO
 from .base import CrearSolicitudBaseHandler
 from dataclasses import dataclass, field
 from entregaalpes.seedwork.aplicacion.comandos import ejecutar_commando as comando
 
-from entregaalpes.modulos.envios.dominio.entidades import Solicitud
+from entregaalpes.modulos.solicitudes.dominio.entidades import Solicitud
 from entregaalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
-from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorSo
-from entregaalpes.modulos.envios.infraestructura.repositorios import RepositorioReservas, RepositorioEventosReservas
+from entregaalpes.modulos.solicitudes.aplicacion.mapeadores import MapeadorSo
+from entregaalpes.modulos.solicitudes.infraestructura.repositorios import RepositorioReservas, RepositorioEventosReservas
 
 @dataclass
 class CrearSolicitud(Comando):

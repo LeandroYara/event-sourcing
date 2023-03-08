@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from entregaalpes.modulos.envios.dominio.entidades import Cliente
+from entregaalpes.modulos.solicitudes.dominio.entidades import Cliente
 from entregaalpes.seedwork.dominio.objetos_valor import ObjetoValor, Codigo, Ruta, Locacion
 from datetime import datetime
 from enum import Enum
 
 @dataclass(frozen=True)
-class NombreAero():
+class NombreCliente():
     nombre: str
 
 @dataclass(frozen=True)

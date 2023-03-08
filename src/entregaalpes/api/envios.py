@@ -1,13 +1,13 @@
 import entregaalpes.seedwork.presentacion.api as api
 import json
-from entregaalpes.modulos.envios.aplicacion.dto import ReservaDTO
+from entregaalpes.modulos.solicitudes.aplicacion.dto import ReservaDTO
 from entregaalpes.seedwork.dominio.excepciones import ExcepcionDominio
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
-from entregaalpes.modulos.envios.aplicacion.mapeadores import MapeadorSolicitudDTOJson
-from entregaalpes.modulos.envios.aplicacion.comandos.crear_reserva import CrearSolicitud
-from entregaalpes.modulos.envios.aplicacion.queries.obtener_reserva import ObtenerReserva
+from entregaalpes.modulos.solicitudes.aplicacion.mapeadores import MapeadorSolicitudDTOJson
+from entregaalpes.modulos.solicitudes.aplicacion.comandos.crear_solicitud import CrearSolicitud
+from entregaalpes.modulos.solicitudes.aplicacion.queries.obtener_solicitud import ObtenerSolicitud
 from entregaalpes.seedwork.aplicacion.comandos import ejecutar_commando
 from entregaalpes.seedwork.aplicacion.queries import ejecutar_query
 

@@ -3,7 +3,7 @@ from entregaalpes.seedwork.infraestructura.schema.v1.eventos import EventoIntegr
 from entregaalpes.seedwork.infraestructura.utils import time_millis
 import uuid
 
-class ReservaCreadaPayload(Record):
+class SolicitudCreadaPayload(Record):
     id_reserva = String()
     id_cliente = String()
     estado = String()
@@ -20,7 +20,7 @@ class EventoReservaCreada(EventoIntegracion):
     type = String()
     datacontenttype = String()
     service_name = String()
-    data = ReservaCreadaPayload()
+    data = SolicitudCreadaPayload()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
